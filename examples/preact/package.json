@@ -1,0 +1,18 @@
+{
+    "scripts": {
+        "start": "nollup -c --hot"
+    },
+    "dependencies": {
+        "feather-icons": "^4.26.0",
+        "preact": "^10.3.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.8.6",
+        "@babel/plugin-transform-react-jsx": "^7.8.3",
+        "node-sass": "^4.13.1",
+        "nollup": "^0.10.6",
+        "rollup-plugin-babel": "^4.3.3",
+        "rollup-plugin-hot-css": "0.0.6",
+        "rollup-plugin-node-resolve": "^5.2.0"
+    }
+}
