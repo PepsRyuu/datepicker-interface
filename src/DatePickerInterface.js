@@ -124,6 +124,21 @@ export function createDatePickerInterface (options = {}) {
                 .replace('1933', 'YYYY')
         },
 
+        select: function (value) {
+            if (currentLevel === 'day') {
+                let d = new Date(pivot.getFullYear(), pivot.getMonth(), value);
+                if (options.onDateSelect) {
+                    options.onDateSelect(d);
+                }
+            } else if (currentLevel === 'month') {
+                currentLevel = 'day';
+                pivot.setMonth(value);
+            } else if (currentLevel === 'year') {
+                currentLevel = 'month';
+                pivot.setFullYear(value);
+            }
+        },
+
         getLayout: function () {
             if (currentLevel === 'day') {
                 let numDaysInMonth = getNumDaysInMonth(pivot.getFullYear(), pivot.getMonth());
@@ -138,13 +153,7 @@ export function createDatePickerInterface (options = {}) {
                             header: true
                         })),
                         ...getDateGrid(numStartWeekday, numDaysInMonth)
-                    ],
-                    onSelect: function (day) {
-                        let d = new Date(pivot.getFullYear(), pivot.getMonth(), day);
-                        if (options.onDateSelect) {
-                            options.onDateSelect(d);
-                        }
-                    }
+                    ]
                 }
             }
 
@@ -159,11 +168,7 @@ export function createDatePickerInterface (options = {}) {
                                 value: r * 4 + c
                             }))
                         ))
-                    ],
-                    onSelect: function (month) {
-                        currentLevel = 'day';
-                        pivot.setMonth(month);
-                    }
+                    ]
                 }
             }
 
@@ -182,11 +187,7 @@ export function createDatePickerInterface (options = {}) {
                                 value: startRange + r * 4 + c
                             }))
                         ))
-                    ],
-                    onSelect: function (year) {
-                        currentLevel = 'month';
-                        pivot.setFullYear(year);
-                    }
+                    ]
                 }
             }
         }

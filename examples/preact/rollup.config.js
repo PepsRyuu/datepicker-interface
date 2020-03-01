@@ -1,6 +1,7 @@
 let babel = require('rollup-plugin-babel');
 let css = require('rollup-plugin-hot-css');
 let resolve = require('rollup-plugin-node-resolve');
+let alias = require('rollup-plugin-alias');
 
 let scss = (code, id) => {
     return require('node-sass').renderSync({
@@ -19,6 +20,13 @@ module.exports = {
         entryFileNames: '[name].js'
     },
     plugins: [
+        alias({
+            // Not necessary in a real app, just needed for the example to run.
+            entries:[
+                {find: 'preact/hooks', replacement: require.resolve('preact/hooks').replace('.js', '.module.js')}, 
+                {find: 'datepicker-interface', replacement: require('path').resolve(__dirname, '../../src') }
+            ]
+        }),
         resolve(),
         babel(),
         css({

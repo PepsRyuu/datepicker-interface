@@ -339,7 +339,7 @@ describe ('DatePickerInterface', () => {
 
             expect(state.getLayout().title).to.equal('2018');
             state.goUpPage();
-            state.getLayout().onSelect(3);
+            state.select(3);
             expect(state.getLayout().title).to.equal('April 2017');
 
             clock.restore();
@@ -358,8 +358,8 @@ describe ('DatePickerInterface', () => {
             expect(state.getLayout().title).to.equal('2010 - 2021');
 
             state.goUpPage();
-            state.getLayout().onSelect(2001)
-            state.getLayout().onSelect(3);
+            state.select(2001)
+            state.select(3);
             
             expect(state.getLayout().title).to.equal('April 2001');
 
@@ -394,8 +394,8 @@ describe ('DatePickerInterface', () => {
 
             state.goUpLevel();
             state.goUpPage();
-            state.getLayout().onSelect(3);
-            state.getLayout().onSelect(30);
+            state.select(3);
+            state.select(30);
 
             expect(callback.args[0][0].getFullYear()).to.equal(2017);
             expect(callback.args[0][0].getMonth()).to.equal(3);

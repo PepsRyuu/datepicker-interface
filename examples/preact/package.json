@@ -11,6 +11,7 @@
         "@babel/plugin-transform-react-jsx": "^7.8.3",
         "node-sass": "^4.13.1",
         "nollup": "^0.10.6",
+        "rollup-plugin-alias": "^2.2.0",
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-hot-css": "0.0.6",
         "rollup-plugin-node-resolve": "^5.2.0"

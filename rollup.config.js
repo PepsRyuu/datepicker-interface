@@ -1,5 +1,4 @@
 let babel = require('rollup-plugin-babel');
-let pkg = require('./package.json');
 
 if (process.env.NODE_ENV === 'test') {
     module.exports = {
@@ -14,14 +13,25 @@ if (process.env.NODE_ENV === 'test') {
         ]
     }
 } else {
-    module.exports = {
+    module.exports = [{
         input: './src/DatePickerInterface.js',
-        output: [
-            { file: pkg.main, format: 'cjs' },
-            { file: pkg.module, format: 'esm' }
-        ],
-        plugins: [
-            babel()
-        ]
-    }
+        output: {
+            file: 'dist/index.js', 
+            format: 'esm'
+        }
+    }, {
+        input: './src/hooks/preact.js',
+        output: {
+            file: 'dist/hooks/preact.js',
+            format: 'esm'
+        },
+        external: [ 'preact/hooks' ]
+    }, {
+        input: './src/hooks/react.js',
+        output: {
+            file: 'dist/hooks/react.js',
+            format: 'esm'
+        },
+        external: [ 'react' ]
+    }];
 }

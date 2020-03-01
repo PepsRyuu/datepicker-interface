@@ -1,16 +1,14 @@
 {
     "name": "datepicker-interface",
     "version": "0.0.1",
-    "main": "dist/DatePickerInterface.cjs.js",
-    "module": "dist/DatePickerInterface.esm.js",
+    "private": true,
     "scripts": {
         "clean": "rm -rf target && rm -rf dist",
-        "build": "npm run clean && cross-env NODE_ENV=production rollup -c",
+        "build": "npm run test && npm run clean && cross-env NODE_ENV=production rollup -c && node prepare-package.js",
         "test:ui": "npm-run-all -r -p _testbuild _testrun",
         "test": "npm-run-all -r -p _testbuild \"_testrun -- --console --once\"",
         "_testbuild": "cross-env NODE_ENV=test nollup -c",
-        "_testrun": "wait-on http://localhost:8080/tests.js && mocha-istanbul-ui --watch http://localhost:8080/tests.js",
-        "prepublish": "npm run test && npm run build"
+        "_testrun": "wait-on http://localhost:8080/tests.js && mocha-istanbul-ui --watch http://localhost:8080/tests.js"
     },
     "devDependencies": {
         "@babel/core": "^7.8.6",
