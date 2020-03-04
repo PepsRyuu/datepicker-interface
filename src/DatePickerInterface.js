@@ -1,5 +1,14 @@
+function pad2 (num) {
+    return num < 10? '0' + num : num;
+}
+
 function getLocaleString (lang, date, options) {
     lang += '-u-ca-gregory';
+
+    if (!window.Intl) {
+        return date.getFullYear() + '-' + pad2(date.getMonth() + 1) + '-' + pad2(date.getDate());  
+    }
+    
     return date.toLocaleDateString(lang, options);
 }
 
@@ -89,10 +98,6 @@ export function createDatePickerInterface (options = {}) {
     let pivot = new Date(currentYear, currentMonth, 1);
 
     return {
-        setLevel: function (level) {
-            currentLevel = level;
-        },
-
         goUpLevel: function () {
             if (currentLevel === 'day') {
                 currentLevel = 'month';
@@ -101,11 +106,11 @@ export function createDatePickerInterface (options = {}) {
             }
         },
 
-        goUpPage: function () {
+        goPrevPage: function () {
             changePage(currentLevel, pivot, -1);
         },
 
-        goDownPage: function () {
+        goNextPage: function () {
             changePage(currentLevel, pivot, +1);
         },
 
@@ -114,10 +119,6 @@ export function createDatePickerInterface (options = {}) {
         },
 
         getPlaceholder: function () {
-            if (!window.Intl || options.intl) {
-                return 'YYYY-MM-DD';
-            }
-
             return getLocaleString(language, new Date(1933, 10, 22), { month: '2-digit', day: '2-digit', year: 'numeric' })
                 .replace('22', 'DD')
                 .replace('11', 'MM')

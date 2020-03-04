@@ -1,4 +1,4 @@
 import { useState } from 'preact/hooks';
 import createHook from './useDatePickerInterfaceImpl';
 
-export default createHook(useState);
+export const useDatePickerInterface = createHook(useState);

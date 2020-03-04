@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import useDatePickerInterface from 'datepicker-interface/hooks/preact';
+import { useDatePickerInterface } from 'datepicker-interface/hooks/preact';
 import './DatePicker.scss';
 
 function Icon (props) {
@@ -37,8 +37,8 @@ export default function DatePicker (props) {
                                 {layout.title}
                             </div>
                             <div class="DatePicker-calendar-arrows">
-                                <Icon name="chevron-up" onClick={dpi.goUpPage} />
-                                <Icon name="chevron-down" onClick={dpi.goDownPage} />
+                                <Icon name="chevron-up" onClick={dpi.goPrevPage} />
+                                <Icon name="chevron-down" onClick={dpi.goNextPage} />
                             </div>
                         </div>
                         <div class="DatePicker-calendar-body" key={layout.level}>

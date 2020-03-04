@@ -94,7 +94,7 @@ describe ('DatePickerInterface', () => {
             it ('should show months for the current year', () => {
                 let clock = sinon.useFakeTimers(new Date(2000, 0, 1));
                 let state = createDatePickerInterface();
-                state.setLevel('month');
+                state.goUpLevel();
 
                 let layout = state.getLayout();
                 expect(layout.title).to.equal('2000');
@@ -110,7 +110,8 @@ describe ('DatePickerInterface', () => {
             it ('should show year range for the current year', () => {
                 let clock = sinon.useFakeTimers(new Date(2018, 0, 1));
                 let state = createDatePickerInterface();
-                state.setLevel('year');
+                state.goUpLevel();
+                state.goUpLevel();
 
                 let layout = state.getLayout();
                 expect(layout.title).to.equal('2010 - 2021');
@@ -133,7 +134,7 @@ describe ('DatePickerInterface', () => {
 
             it ('should localise month level', () => {
                 let state = createDatePickerInterface({ language: 'ja' });
-                state.setLevel('month');
+                state.goUpLevel();
                 let layout = state.getLayout();
 
                 expect(layout.grid).to.deep.equal([
@@ -162,7 +163,7 @@ describe ('DatePickerInterface', () => {
                 ['', '', '', '', '', '', ''].map(s => ({ text: s, value: null })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('December 2019');
@@ -176,7 +177,7 @@ describe ('DatePickerInterface', () => {
                 ['', '', '', '', '', '', ''].map(s => ({ text: s, value: null })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('November 2019');
@@ -190,7 +191,7 @@ describe ('DatePickerInterface', () => {
                 ['', '', '', '', '', '', ''].map(s => ({ text: s, value: null })),
             ]);
 
-            state.goDownPage();
+            state.goNextPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('December 2019');
@@ -210,7 +211,7 @@ describe ('DatePickerInterface', () => {
         it ('should be able to switch pages for months layout', () => {
             let clock = sinon.useFakeTimers(new Date(2020, 0, 1));
             let state = createDatePickerInterface();
-            state.setLevel('month');
+            state.goUpLevel();
 
             let layout = state.getLayout();
 
@@ -221,7 +222,7 @@ describe ('DatePickerInterface', () => {
                 ['Sep', 'Oct', 'Nov', 'Dec'].map((s, i) => ({ text: s, value: 8 + i })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('2019');
@@ -231,7 +232,7 @@ describe ('DatePickerInterface', () => {
                 ['Sep', 'Oct', 'Nov', 'Dec'].map((s, i) => ({ text: s, value: 8 + i })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('2018');
@@ -241,7 +242,7 @@ describe ('DatePickerInterface', () => {
                 ['Sep', 'Oct', 'Nov', 'Dec'].map((s, i) => ({ text: s, value: 8 + i })),
             ]);
 
-            state.goDownPage();
+            state.goNextPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('2019');
@@ -258,7 +259,8 @@ describe ('DatePickerInterface', () => {
         it ('should be able to switch pages for years layout', () => {
             let clock = sinon.useFakeTimers(new Date(2015, 0, 1));
             let state = createDatePickerInterface();
-            state.setLevel('year');
+            state.goUpLevel();
+            state.goUpLevel();
 
             let layout = state.getLayout();
 
@@ -269,7 +271,7 @@ describe ('DatePickerInterface', () => {
                 ['2018', '2019', '2020', '2021'].map(s => ({ text: s, value: parseInt(s) })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('2000 - 2011');
@@ -279,7 +281,7 @@ describe ('DatePickerInterface', () => {
                 ['2008', '2009', '2010', '2011'].map(s => ({ text: s, value: parseInt(s) })),
             ]);
 
-            state.goUpPage();
+            state.goPrevPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('1990 - 2001');
@@ -289,7 +291,7 @@ describe ('DatePickerInterface', () => {
                 ['1998', '1999', '2000', '2001'].map(s => ({ text: s, value: parseInt(s) })),
             ]);
 
-            state.goDownPage();
+            state.goNextPage();
             layout = state.getLayout();
 
             expect(layout.title).to.equal('2000 - 2011');
@@ -322,7 +324,7 @@ describe ('DatePickerInterface', () => {
             let clock = sinon.useFakeTimers(new Date(2018, 0, 1));
             let state = createDatePickerInterface();
             expect(state.getLayout().title).to.equal('January 2018');
-            state.goUpPage();
+            state.goPrevPage();
             expect(state.getLayout().title).to.equal('December 2017');
             state.goUpLevel();
             expect(state.getLayout().title).to.equal('2017');
@@ -338,7 +340,7 @@ describe ('DatePickerInterface', () => {
             state.goUpLevel(); 
 
             expect(state.getLayout().title).to.equal('2018');
-            state.goUpPage();
+            state.goPrevPage();
             state.select(3);
             expect(state.getLayout().title).to.equal('April 2017');
 
@@ -357,7 +359,7 @@ describe ('DatePickerInterface', () => {
 
             expect(state.getLayout().title).to.equal('2010 - 2021');
 
-            state.goUpPage();
+            state.goPrevPage();
             state.select(2001)
             state.select(3);
             
@@ -393,7 +395,7 @@ describe ('DatePickerInterface', () => {
             let state = createDatePickerInterface({ onDateSelect: callback });
 
             state.goUpLevel();
-            state.goUpPage();
+            state.goPrevPage();
             state.select(3);
             state.select(30);
 
